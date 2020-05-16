@@ -1,0 +1,45 @@
+import random
+
+list1 = ["top","cap","cat","lip","lap"]
+
+def hangman(word):
+    wrong = 0
+    stages = [
+        "",
+        "_____",
+        "|   | ",
+        "|   O",
+        "|  /|\ ",
+        "|  / \ ",
+        "|",
+        ]
+    rletters = list(word)
+    board = ["_"] * len(word)
+    win = False
+    print("ハングマンへようこそ！")
+
+    while wrong < len(stages) - 1:
+        print("\n")
+        msg = "1文字を予想してね"
+        char = input(msg)
+        if char in rletters:
+            cind = rletters.index(char)
+            board[cind] = char
+            rletters[cind] = "$"
+            if "_" not in board:
+                print("あなたの勝ち！")
+                print(" ".join(board))
+                win = True
+                break
+        else:
+            wrong += 1
+            print(" ".join(board))
+            e = wrong + 1
+            print("\n".join(stages[0:e]))
+            
+
+    if not win:
+        print("\n".join(stages[0:wrong+1]))
+        print("貴方の負け")
+
+hangman(list1[random.randint(0,4)])
